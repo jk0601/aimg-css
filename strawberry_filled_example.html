@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>딸기나라 - 딸기 상세페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* 기본 리셋 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* 애니메이션 */
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-1rem);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.6s ease-out forwards;
+        }
+
+        /* 메인 컨테이너 */
+        .main-container {
+            min-height: 100vh;
+            padding: 20px 16px;
+        }
+
+        @media (min-width: 768px) {
+            .main-container {
+                padding: 20px 32px;
+            }
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* 헤더 섹션 */
+        .hero-section {
+            min-height: 1400px;
+            background: white;
+            position: relative;
+            width: 100%;
+        }
+
+        .hero-bg-image {
+            width: 100%;
+            height: 860px;
+            position: absolute;
+            top: 540px;
+            left: 0;
+            background: url('images/main.png') 50% 50% / cover;
+        }
+
+        .hero-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 80px 20px 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: fit-content;
+            background: #272727;
+            z-index: 10;
+        }
+
+        .hero-title {
+            width: fit-content;
+            font-family: 'Cafe24 ClassicType', 'Noto Sans KR', sans-serif;
+            font-weight: normal;
+            color: white;
+            font-size: 36px;
+            text-align: center;
+            letter-spacing: -0.72px;
+            line-height: normal;
+        }
+
+        .hero-content {
+            width: 100%;
+            height: 170px;
+            position: absolute;
+            top: 264px;
+            left: 0;
+            right: 0;
+        }
+
+        .hero-text-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: fit-content;
+            align-items: center;
+        }
+
+        .hero-subtitle {
+            width: fit-content;
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            color: #696868;
+            font-size: 40px;
+            text-align: center;
+            letter-spacing: -0.80px;
+            line-height: normal;
+            white-space: nowrap;
+        }
+
+        .hero-main-title {
+            position: relative;
+        }
+
+        .hero-main-text {
+            font-weight: 900;
+            font-size: 80px;
+            text-align: center;
+            letter-spacing: -1.60px;
+            line-height: 100px;
+            width: fit-content;
+            color: #272727;
+            white-space: nowrap;
+            position: relative;
+            z-index: 10;
+            padding: 0 16px;
+            font-family: 'Jalnan', 'Noto Sans KR', sans-serif;
+        }
+
+        .hero-highlight {
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #fcecea;
+            z-index: 0;
+        }
+
+        /* 특징 섹션 */
+        .features-section {
+            min-height: 450px;
+            background: white;
+            position: relative;
+            width: 100%;
+        }
+
+        .features-container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 57px 50px;
+        }
+
+        .features-grid {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .feature-item {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .feature-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            padding: 24px 16px;
+            text-align: center;
+            height: 100%;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .feature-text {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .feature-title {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: 800;
+            color: #272727;
+            font-size: 32px;
+            letter-spacing: -0.64px;
+            line-height: normal;
+        }
+
+        .feature-description {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: normal;
+            color: #696868;
+            font-size: 18px;
+            letter-spacing: -0.36px;
+            line-height: 24px;
+            white-space: pre-line;
+        }
+
+        .separator {
+            width: 1px;
+            background: #e5e7eb;
+            align-self: stretch;
+        }
+
+
+        /* 포인트 섹션들 */
+        .point-section {
+            height: 1800px;
+            margin-top: -1px;
+            background: white;
+            position: relative;
+            width: 100%;
+        }
+
+        .point-bg {
+            position: relative;
+            height: 1800px;
+        }
+
+        .point-bg-image {
+            position: absolute;
+            width: 100%;
+            height: 1300px;
+            top: 500px;
+            left: 0;
+            background-size: cover;
+            background-position: 50% 50%;
+        }
+
+        .point-gradient {
+            position: absolute;
+            width: 100%;
+            height: 1100px;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+        }
+
+        .point-content {
+            display: flex;
+            width: 760px;
+            gap: 50px;
+            position: absolute;
+            top: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .point-header {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 0 10px 5px;
+            position: relative;
+            flex: 0 0 auto;
+            border-bottom: 1px solid #9c9c9c;
+        }
+
+        .point-number {
+            position: relative;
+            width: fit-content;
+            margin-top: -1px;
+            font-family: 'Cafe24 ClassicType', 'Noto Sans KR', sans-serif;
+            font-weight: normal;
+            color: #272727;
+            font-size: 28px;
+            text-align: center;
+            letter-spacing: -0.56px;
+            line-height: normal;
+        }
+
+        .point-text-container {
+            display: flex;
+            gap: 20px;
+            position: relative;
+            align-self: stretch;
+            width: 100%;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .point-subtitle {
+            position: relative;
+            width: fit-content;
+            margin-top: -1px;
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            color: #696868;
+            font-size: 40px;
+            text-align: center;
+            letter-spacing: -0.80px;
+            line-height: normal;
+            white-space: nowrap;
+        }
+
+        .point-main-title {
+            position: relative;
+            width: fit-content;
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: 800;
+            color: #272727;
+            font-size: 70px;
+            text-align: center;
+            letter-spacing: -1.40px;
+            line-height: normal;
+            white-space: nowrap;
+        }
+
+        .point-description {
+            position: relative;
+            width: 660px;
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: normal;
+            color: #696868;
+            font-size: 32px;
+            text-align: center;
+            letter-spacing: -0.64px;
+            line-height: 40px;
+        }
+
+        /* 상세 정보 섹션 */
+        .info-section {
+            background: white;
+            position: relative;
+            width: 100%;
+            min-height: 600px;
+        }
+
+        .info-bg {
+            position: relative;
+            min-height: 600px;
+            background: white;
+        }
+
+        .info-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            padding: 64px 32px 32px;
+        }
+
+        .info-header {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 0 10px 5px;
+            border-bottom: 1px solid #9c9c9c;
+        }
+
+        .info-number {
+            font-family: 'Cafe24 ClassicType', 'Noto Sans KR', sans-serif;
+            font-weight: normal;
+            color: #272727;
+            font-size: 28px;
+            text-align: center;
+            letter-spacing: -0.56px;
+            line-height: normal;
+        }
+
+        .info-text-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .info-subtitle {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            color: #696868;
+            font-size: 36px;
+            letter-spacing: -0.72px;
+            line-height: normal;
+        }
+
+        .info-main-title {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: 800;
+            color: #272727;
+            font-size: 60px;
+            letter-spacing: -1.20px;
+            line-height: normal;
+        }
+
+        .info-description {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: normal;
+            color: #696868;
+            font-size: 20px;
+            letter-spacing: -0.40px;
+            line-height: 30px;
+            max-width: 500px;
+        }
+
+
+        /* 추천 섹션 */
+        .recommendation-section {
+            background: #f8f9fa;
+            padding: 64px 32px;
+        }
+
+        .recommendation-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .recommendation-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .recommendation-title {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: 800;
+            color: #272727;
+            font-size: 48px;
+            letter-spacing: -0.96px;
+            line-height: normal;
+            margin-bottom: 16px;
+        }
+
+        .recommendation-subtitle {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            color: #696868;
+            font-size: 24px;
+            letter-spacing: -0.48px;
+            line-height: normal;
+        }
+
+        .recommendation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .recommendation-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .recommendation-check {
+            width: 32px;
+            height: 32px;
+            background: #ff6b6b;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .recommendation-text {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: normal;
+            color: #272727;
+            font-size: 20px;
+            letter-spacing: -0.40px;
+            line-height: normal;
+        }
+
+        /* 안내사항 섹션 */
+        .notice-section {
+            background: #f4f4f4;
+            padding: 80px 48px;
+            width: 100%;
+            position: relative;
+        }
+
+        .notice-container {
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        .notice-title {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: 800;
+            color: #272727;
+            font-size: 40px;
+            letter-spacing: -0.80px;
+            line-height: normal;
+            margin-bottom: 48px;
+        }
+
+        .notice-separator {
+            width: 100%;
+            background: #272727;
+            height: 1px;
+            margin-bottom: 48px;
+        }
+
+        .notice-items {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        .notice-item {
+            border-radius: 12px;
+            border: transparent;
+            color: #0f172a;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .notice-content {
+            padding: 0;
+        }
+
+        .notice-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .notice-item-title {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            color: #272727;
+            font-size: 28px;
+            letter-spacing: 0;
+            line-height: normal;
+        }
+
+        .notice-item-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notice-item-text {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            font-weight: normal;
+            color: #696868;
+            font-size: 24px;
+            letter-spacing: 0;
+            line-height: 32px;
+        }
+
+        /* FAQ 섹션 */
+        .faq-section {
+            position: relative;
+            width: 100%;
+            background: #f4f4f4;
+            padding: 80px 48px;
+        }
+
+        .faq-container {
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            font-family: 'NanumSquare', 'Noto Sans KR', sans-serif;
+            font-weight: 800;
+            color: #272727;
+            font-size: 40px;
+            letter-spacing: -0.80px;
+            line-height: normal;
+            margin-bottom: 85px;
+        }
+
+        .faq-separator {
+            height: 1px;
+            width: 100%;
+            margin-bottom: 40px;
+            background: #d1d5db;
+        }
+
+        .faq-items {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .faq-item {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-question {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            font-weight: 600;
+            color: #272727;
+            font-size: 28px;
+            letter-spacing: 0;
+            line-height: 35px;
+        }
+
+        .faq-answer {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            font-weight: normal;
+            color: #696868;
+            font-size: 28px;
+            letter-spacing: 0;
+            line-height: 35px;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .hero-main-text {
+                font-size: 60px;
+                line-height: 80px;
+            }
+            
+            .hero-subtitle {
+                font-size: 32px;
+            }
+            
+            .features-grid {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .feature-item {
+                max-width: 100%;
+            }
+            
+            .point-main-title {
+                font-size: 50px;
+            }
+            
+            .point-subtitle {
+                font-size: 32px;
+            }
+            
+            .point-description {
+                width: 100%;
+                font-size: 24px;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="content-wrapper">
+            <div class="flex flex-col items-start relative w-full">
+                
+                <!-- 히어로 섹션 -->
+                <div class="animate-fade-in w-full">
+                    <section class="hero-section">
+                        <div class="hero-bg-image"></div>
+                        <header class="hero-header animate-fade-in">
+                            <h1 class="hero-title">딸기나라</h1>
+                        </header>
+                        <div class="hero-content animate-fade-in">
+                            <div class="hero-text-container">
+                                <div class="hero-subtitle animate-fade-in">청정 자연에서 재배해 더 맛있는</div>
+                                <div class="hero-main-title">
+                                    <div class="hero-main-text animate-fade-in">딸기나라 제철 딸기</div>
+                                    <div class="hero-highlight"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- 특징 섹션 -->
+                <div class="animate-fade-in w-full">
+                    <section class="features-section">
+                        <div class="features-container">
+                            <div class="features-grid">
+                                <div class="feature-item animate-fade-in">
+                                    <div class="feature-content">
+                                        <div class="feature-icon">
+                                            <img src="images/icon_smile.png" alt="보장된 맛">
+                                        </div>
+                                        <div class="feature-text">
+                                            <h3 class="feature-title">보장된 맛</h3>
+                                            <p class="feature-description">아침에 직접구
+아침에 직접구 아침에
+아침에 직접구
+아침에 직접구</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="separator animate-fade-in"></div>
+                                
+                                <div class="feature-item animate-fade-in">
+                                    <div class="feature-content">
+                                        <div class="feature-icon">
+                                            <img src="images/icon_delivery.png" alt="빠른 배송">
+                                        </div>
+                                        <div class="feature-text">
+                                            <h3 class="feature-title">빠른 배송</h3>
+                                            <p class="feature-description">아침에 직접구
+아침에 직접구 아침에
+아침에 직접구
+아침에 직접구</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="separator animate-fade-in"></div>
+                                
+                                <div class="feature-item animate-fade-in">
+                                    <div class="feature-content">
+                                        <div class="feature-icon">
+                                            <img src="images/icon_relief.png" alt="안심 재배">
+                                        </div>
+                                        <div class="feature-text">
+                                            <h3 class="feature-title">안심 재배</h3>
+                                            <p class="feature-description">아침에 직접구
+아침에 직접구 아침에
+아침에 직접구
+아침에 직접구</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <!-- 상품 소개 섹션 -->
+                <div class="animate-fade-in w-full">
+                    <div style="color: #0f172a; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); background: white; position: relative; width: 100%; min-height: 1500px; border: 0; border-radius: 0;">
+                        <div style="padding: 0; position: relative;">
+                            <div style="position: absolute; width: 660px; top: 149px; left: 50%; transform: translateX(-50%); font-family: 'NanumSquare', 'Noto Sans KR', sans-serif; font-weight: normal; color: #272727; font-size: 32px; text-align: center; letter-spacing: -0.64px; line-height: 45px;">
+                                저희 딸기나라는 <br>청정 지역에서 정성스럽게 재배한 <br>신선한 딸기를 엄선해 <br>믿고 드실 수 있도록<br>어쩌구 저쩌구 합니다.<br><br>새콤달콤 맛있는 딸기를<br>이제 안심하고 드셔보세요.
+                            </div>
+                            <div style="position: absolute; width: 100%; max-width: 860px; height: 860px; top: 640px; left: 50%; transform: translateX(-50%); background: url('images/img9.png') 50% 50% / cover;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 포인트 섹션들 -->
+                <div class="animate-fade-in w-full">
+                    <section class="point-section">
+                        <div class="point-bg">
+                            <div class="point-bg-image" style="background: url('images/img10.png') 50% 50% / cover;"></div>
+                            <div class="point-gradient"></div>
+                            <div class="point-content">
+                                <div class="point-header animate-fade-in">
+                                    <div class="point-number">POINT 01</div>
+                                </div>
+                                <div class="point-text-container animate-fade-in">
+                                    <div class="point-subtitle">더욱 신선한 설향딸기</div>
+                                    <div class="point-main-title">당일 수확! 당일 배송!</div>
+                                </div>
+                                <div class="point-description animate-fade-in">딸기나라에서는 고객님께서<br>신선한 딸기를 만나보실 수 있도록<br>당일 수확한 딸기를 배송해 드리고 있습니다.</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- POINT 04 섹션 -->
+                <div class="animate-fade-in w-full">
+                    <section class="info-section">
+                        <div class="info-bg">
+                            <div class="info-content">
+                                <div class="info-header">
+                                    <div class="info-number">POINT 04</div>
+                                </div>
+                                <div class="info-text-container">
+                                    <div class="info-subtitle">무른 곳 없이 신선한 딸기</div>
+                                    <div class="info-main-title">꼼꼼한 포장 & 빠른 배송</div>
+                                    <div class="info-description">딸기나라에서는 아이스팩과 뽁뽁이를 동봉하여<br>딸기가 무르지 않도록 꼼꼼하게 포장하며<br>당일 배송을 통해 빠르게 보내드립니다.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="recommendation-section">
+                            <div class="recommendation-container">
+                                <div class="recommendation-header">
+                                    <h2 class="recommendation-title">딸기나라 제철딸기</h2>
+                                    <p class="recommendation-subtitle">이런 분들께 특히 추천해요!</p>
+                                </div>
+                                <div class="recommendation-list">
+                                    <div class="recommendation-item">
+                                        <div class="recommendation-check">
+                                            <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+                                                <path d="M1 6L6 11L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <span class="recommendation-text">제철 딸기를 빠르게 드시고 싶으신 분</span>
+                                    </div>
+                                    <div class="recommendation-item">
+                                        <div class="recommendation-check">
+                                            <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+                                                <path d="M1 6L6 11L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <span class="recommendation-text">우리 가족 안심 과일을 찾고 계신 분</span>
+                                    </div>
+                                    <div class="recommendation-item">
+                                        <div class="recommendation-check">
+                                            <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+                                                <path d="M1 6L6 11L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <span class="recommendation-text">지인께 선물할 과일을 찾으시는 분</span>
+                                    </div>
+                                    <div class="recommendation-item">
+                                        <div class="recommendation-check">
+                                            <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+                                                <path d="M1 6L6 11L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <span class="recommendation-text">딸기 응용 디저트를 만들고 싶으신 분</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- 안내사항 섹션 -->
+                <div class="animate-fade-in w-full">
+                    <section class="notice-section">
+                        <div class="notice-container">
+                            <div class="animate-fade-in">
+                                <h2 class="notice-title">구매 전 꼭 읽어주세요.</h2>
+                            </div>
+                            <div class="notice-separator animate-fade-in"></div>
+                            <div class="notice-items">
+                                <div class="notice-item animate-fade-in">
+                                    <div class="notice-content">
+                                        <div class="notice-inner">
+                                            <h3 class="notice-item-title">상품 안내</h3>
+                                            <div class="notice-item-content">
+                                                <p class="notice-item-text">딸기 씨 부분은 어쩌구 저쩌구</p>
+                                                <p class="notice-item-text">신선식품 특성상 어쩌구 저쩌구</p>
+                                                <p class="notice-item-text">보관 방법은 어쩌구 저쩌구</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="notice-item animate-fade-in">
+                                    <div class="notice-content">
+                                        <div class="notice-inner">
+                                            <h3 class="notice-item-title">배송 안내</h3>
+                                            <div class="notice-item-content">
+                                                <p class="notice-item-text">2일 이내 발송 (주말/공휴일 제외)</p>
+                                                <p class="notice-item-text">도서산간 지역은 배송 3-5일이 더 소요</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="notice-item animate-fade-in">
+                                    <div class="notice-content">
+                                        <div class="notice-inner">
+                                            <h3 class="notice-item-title">교환/반품 안내</h3>
+                                            <div class="notice-item-content">
+                                                <p class="notice-item-text">신선식품 특성상 어쩌구 저쩌구</p>
+                                                <p class="notice-item-text">자사 측 실수로 판단 되는 경우 어쩌구 저쩌구</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="notice-item animate-fade-in">
+                                    <div class="notice-content">
+                                        <div class="notice-inner">
+                                            <h3 class="notice-item-title">주문 취소 안내</h3>
+                                            <div class="notice-item-content">
+                                                <p class="notice-item-text">상품 준비중 상태에서는 취소 및 변경이 불가 어쩌구</p>
+                                                <p class="notice-item-text">부분 취소 등을 원하시는 경우 고객센터로 어쩌구</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="notice-item animate-fade-in">
+                                    <div class="notice-content">
+                                        <div class="notice-inner">
+                                            <h3 class="notice-item-title">고객센터</h3>
+                                            <div class="notice-item-content">
+                                                <p class="notice-item-text">연락처 : 010-1234-5678</p>
+                                                <p class="notice-item-text">이메일 : helphelp@naver.com</p>
+                                                <p class="notice-item-text">주말/공휴일 제외 9:00 ~ 18:00 까지 상담 가능</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- FAQ 섹션 -->
+                <div class="animate-fade-in w-full">
+                    <section class="faq-section">
+                        <div class="faq-container">
+                            <h2 class="faq-title animate-fade-in">자주 묻는 질문</h2>
+                            <div class="faq-separator animate-fade-in"></div>
+                            <div class="faq-items">
+                                <div class="faq-item animate-fade-in">
+                                    <div class="faq-question">Q. 딸기씨가 검정색인데 괜찮나요?</div>
+                                    <div class="faq-answer">A. 딸기가 햇빛을 받으면 어쩌구 .....</div>
+                                </div>
+                                <div class="faq-item animate-fade-in">
+                                    <div class="faq-question">Q. 딸기씨가 검정색인데 괜찮나요?</div>
+                                    <div class="faq-answer">A. 딸기가 햇빛을 받으면 어쩌구 .....</div>
+                                </div>
+                                <div class="faq-item animate-fade-in">
+                                    <div class="faq-question">Q. 딸기씨가 검정색인데 괜찮나요?</div>
+                                    <div class="faq-answer">A. 딸기가 햇빛을 받으면 어쩌구 .....</div>
+                                </div>
+                                <div class="faq-item animate-fade-in">
+                                    <div class="faq-question">Q. 딸기씨가 검정색인데 괜찮나요?</div>
+                                    <div class="faq-answer">A. 딸기가 햇빛을 받으면 어쩌구 .....</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
